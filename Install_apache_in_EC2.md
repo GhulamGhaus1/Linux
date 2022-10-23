@@ -11,3 +11,7 @@ Enable site
 
 **a2dissite 000-default.conf**
 **a2ensite domain.com.conf**
+
+make sure you enable port 80 in traffic rules 
+
+![image](https://user-images.githubusercontent.com/55359967/197382008-44eae51f-e6c3-42f8-95f0-359f3ee221fe.png)
