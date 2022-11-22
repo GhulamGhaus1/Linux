@@ -19,11 +19,13 @@
 
 ## Allow all public access
 
-![App Screenshot](https://imgur.com/mGYzc90)
+![App Screenshot]![2022-11-22_18-50](https://user-images.githubusercontent.com/55359967/203331301-fc35f881-b4f9-4722-90ab-4299f321f208.png)
+
 
 ## enable static website hosting
 
-![App Screenshot](https://imgur.com/pQMzoDW)
+![App Screenshot]![2022-11-22_18-51](https://user-images.githubusercontent.com/55359967/203331415-65c01395-9d82-4709-8364-0138da0068d8.png)
+
 
 when you enable static website hosting you will see your bucket url there too use that to access your website.
 
