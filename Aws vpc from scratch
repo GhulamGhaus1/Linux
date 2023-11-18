@@ -1,0 +1,116 @@
+# Build Amazon VPC with Public and Private Subnets (from Scratch)
+
+__Creation Date:__ November 1, 2023  
+__Created By:__ Ghulam Ghaus  
+
+
+
+***
+
+
+
+
+## # [An Amazon Virtual Private Cloud (VPC) is a virtual network that is linked to your AWS account. It provides cloud security and allows you to scale dynamically by giving you fine-grained control over your virtual infrastructure and network traffic segmentation. With Amazon VPC, you can define a virtual network that closely resembles a traditional network in your own data center, while benefiting from the scalable infrastructure of AWS.
+
+
+To secure the network traffic in your Amazon VPC, you can use security groups and access control lists (ACLs). Security groups and ACLs allow you to control the network traffic across the subnets and instances in your VPC. ACLs help control the traffic to and from subnets, while security groups control the traffic to and from instances.
+
+You can also configure various components within your VPC, such as IP address range, subnets, route tables, network gateways, network interfaces, and security settings. Additionally, you have the option to connect your VPC to your corporate data center to make the AWS Cloud an extension of your data center.](https://us-east-1.console.aws.amazon.com/console/home?region=us-east-1#)
+
+
+### 1. Select vpc from services 
+![Step 1 screenshot](https://images.tango.us/workflows/5cb6eee7-0316-468d-a9de-7eedf47971b7/steps/23b2dc7e-67ec-4a48-ae0d-bcc14c1ad283/e63756ed-ab79-49dc-902e-b58a4ec4027e.png?crop=focalpoint&fit=crop&fp-x=0.3083&fp-y=0.2575&fp-z=3.0694&w=1200&border=2%2CF4F2F7&border-radius=8%2C8%2C8%2C8&border-radius-inner=8%2C8%2C8%2C8&blend-align=bottom&blend-mode=normal&blend-x=0&blend-w=1200&blend64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmstdjIucG5n&mark-x=558&mark-y=363&m64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL2JsYW5rLnBuZz9tYXNrPWNvcm5lcnMmYm9yZGVyPTQlMkNGRjc0NDImdz04NSZoPTYyJmZpdD1jcm9wJmNvcm5lci1yYWRpdXM9MTA%3D)
+
+
+## # [VPC Console](https://us-east-1.console.aws.amazon.com/vpcconsole/home?region=us-east-1#Home:)
+
+
+### 2. Click on Create VPC
+![Step 2 screenshot](https://images.tango.us/workflows/5cb6eee7-0316-468d-a9de-7eedf47971b7/steps/51c19422-5080-4c66-940a-9a288412d76d/f8d143f9-50ee-461b-a438-a98132383510.png?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&w=1200&border=2%2CF4F2F7&border-radius=8%2C8%2C8%2C8&border-radius-inner=8%2C8%2C8%2C8&blend-align=bottom&blend-mode=normal&blend-x=0&blend-w=1200&blend64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmstdjIucG5n&mark-x=1041&mark-y=39&m64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL2JsYW5rLnBuZz9tYXNrPWNvcm5lcnMmYm9yZGVyPTMlMkNGRjc0NDImdz0xMDImaD0yOSZmaXQ9Y3JvcCZjb3JuZXItcmFkaXVzPTEw)
+
+
+### 3. Select VPC Only
+Name tag: Enter a VPC name for identification to your VPC. Ex: MyVPC
+IPv4
+CIDR block: Enter 10.0.0.0/16
+ IPv6 CIDR block: No need to change Tenancy: No need to change
+this, make sure No IPv6 CIDR Block is checked. this, make sure Default is selected
+![Step 3 screenshot](https://images.tango.us/workflows/5cb6eee7-0316-468d-a9de-7eedf47971b7/steps/7e11fc0e-7a17-44fc-86fa-14f1dfc1e641/a91b66e3-ee89-4a28-83fe-44d5979d21a9.png?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&w=1200&border=2%2CF4F2F7&border-radius=8%2C8%2C8%2C8&border-radius-inner=8%2C8%2C8%2C8&blend-align=bottom&blend-mode=normal&blend-x=0&blend-w=1200&blend64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmstdjIucG5n&mark-x=585&mark-y=720&m64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL2JsYW5rLnBuZz9tYXNrPWNvcm5lcnMmYm9yZGVyPTMlMkNGRjc0NDImdz0xMDImaD0yOSZmaXQ9Y3JvcCZjb3JuZXItcmFkaXVzPTEw)
+
+
+### 4. We will create a public and a private subnet in our vpc 
+![Step 4 screenshot](https://images.tango.us/workflows/5cb6eee7-0316-468d-a9de-7eedf47971b7/steps/ba58b945-8c3a-4446-bd16-b8b968ca4c22/7ecce1f7-7188-4254-8caa-0b1a1cf61233.png?crop=focalpoint&fit=crop&fp-x=0.1095&fp-y=0.3184&fp-z=3.0000&w=1200&border=2%2CF4F2F7&border-radius=8%2C8%2C8%2C8&border-radius-inner=8%2C8%2C8%2C8&blend-align=bottom&blend-mode=normal&blend-x=0&blend-w=1200&blend64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmstdjIucG5n&mark-x=68&mark-y=266&m64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL2JsYW5rLnBuZz9tYXNrPWNvcm5lcnMmYm9yZGVyPTQlMkNGRjc0NDImdz0xNDQmaD02MSZmaXQ9Y3JvcCZjb3JuZXItcmFkaXVzPTEw)
+
+
+### 5. Subnet configuration
+
+For public subnet  
+• VPC ID: Select MyVPC from the list you created earlier.
+
+• Subnet Name: Enter Name MyPublicSubnet
+
+• Availability Zone: Select us-east-la
+
+• IPv4 CIDR block: Enter the range 10.0.1.0/24
+
+• Click on Create subnet.
+
+For the Private Subnet, click on Create subnet again.
+
+• VPC ID: Select MyVPC from the list you created earlier.
+
+• Subnet Name: Enter Name MyPrivateSubnet
+
+Availability Zone: Select us-east-lb
+
+• IPv4 CIDR block: Enter the range 10.0.2.0/24
+
+• Click on Create subnet
+
+![Step 5 screenshot](https://images.tango.us/workflows/5cb6eee7-0316-468d-a9de-7eedf47971b7/steps/46cd0739-7585-4deb-953d-cb860e96eee6/2b3c0656-0a96-41aa-8a19-4693fa132c03.png?crop=focalpoint&fit=crop&fp-x=1.6172&fp-y=0.2750&fp-z=1.1903&w=1200&border=2%2CF4F2F7&border-radius=8%2C8%2C8%2C8&border-radius-inner=8%2C8%2C8%2C8&blend-align=bottom&blend-mode=normal&blend-x=0&blend-w=1200&blend64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmstdjIucG5n&mark-x=0&mark-y=208&m64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL2JsYW5rLnBuZz9tYXNrPWNvcm5lcnMmYm9yZGVyPTQlMkNGRjc0NDImdz00MTYzJmg9MTAwJmZpdD1jcm9wJmNvcm5lci1yYWRpdXM9MTA%3D)
+
+
+### 6. Click on Create internet gateway, create an internet gateway and attach it to your vpc
+![Step 6 screenshot](https://images.tango.us/workflows/5cb6eee7-0316-468d-a9de-7eedf47971b7/steps/6e94f391-bcb8-4608-981e-2b3cd9fff2da/f7f88faf-e03e-429d-9e37-fb7ce0c0c5b1.png?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&w=1200&border=2%2CF4F2F7&border-radius=8%2C8%2C8%2C8&border-radius-inner=8%2C8%2C8%2C8&blend-align=bottom&blend-mode=normal&blend-x=0&blend-w=1200&blend64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmstdjIucG5n&mark-x=968&mark-y=39&m64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL2JsYW5rLnBuZz9tYXNrPWNvcm5lcnMmYm9yZGVyPTMlMkNGRjc0NDImdz0xNzQmaD0yOSZmaXQ9Y3JvcCZjb3JuZXItcmFkaXVzPTEw)
+
+
+### 7. Click on Create route table
+![Step 7 screenshot](https://images.tango.us/workflows/5cb6eee7-0316-468d-a9de-7eedf47971b7/steps/fb1d71b2-b0f8-4e97-86f6-09d63957aec9/739e8bd9-cce4-43ec-aff7-e60d72a722f9.png?crop=focalpoint&fit=crop&fp-x=0.8930&fp-y=0.0681&fp-z=2.9660&w=1200&border=2%2CF4F2F7&border-radius=8%2C8%2C8%2C8&border-radius-inner=8%2C8%2C8%2C8&blend-align=bottom&blend-mode=normal&blend-x=0&blend-w=1200&blend64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmstdjIucG5n&mark-x=609&mark-y=116&m64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL2JsYW5rLnBuZz9tYXNrPWNvcm5lcnMmYm9yZGVyPTQlMkNGRjc0NDImdz00MjAmaD04NyZmaXQ9Y3JvcCZjb3JuZXItcmFkaXVzPTEw)
+
+
+### 8. Click on Create route table
+
+create public and private route tables
+
+![Step 8 screenshot](https://images.tango.us/workflows/5cb6eee7-0316-468d-a9de-7eedf47971b7/steps/fb99140c-a559-4dd1-95ce-637e2341d44d/73c4787d-239a-448b-8cd7-f9360e461dd6.png?crop=focalpoint&fit=crop&fp-x=0.5000&fp-y=0.5000&w=1200&border=2%2CF4F2F7&border-radius=8%2C8%2C8%2C8&border-radius-inner=8%2C8%2C8%2C8&blend-align=bottom&blend-mode=normal&blend-x=0&blend-w=1200&blend64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmstdjIucG5n&mark-x=545&mark-y=550&m64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL2JsYW5rLnBuZz9tYXNrPWNvcm5lcnMmYm9yZGVyPTMlMkNGRjc0NDImdz0xNDEmaD0yOSZmaXQ9Y3JvcCZjb3JuZXItcmFkaXVzPTEw)
+
+
+### 9. Click on Subnet associations
+
+3\. Now associate the subnets to the route tables.  
+4\. Click on one PublicRouteTable and go to the Subnet Associations tab.  
+• Click on Edit subnet associations.  
+• Select MyPublicSubnet from the list.  
+• Click on Save associations.  
+5\. Click on one PrivateRouteTable and go to the Subnet Associations tab.  
+• Click on Edit subnet associations.  
+• Select MyPrivateSubnet from the list.  
+• Click on Save associations.  
+6\. Make sure not to associate any subnets with the Main Route Table.  
+7\. PublicRouteTable: Add a route to allow Internet traffic to the VPC.  
+• Select PublicRoute Table.
+
+Go to Routes tab, click on Edit routes and on the next page, click on Add route.  
+Specify the following values: • Destination: Enter 0.0.0.0/0 Target: Select Internet Gateway from the dropdown menu to select MyInternetGateway.  
+• Click on Save changes
+
+![Step 9 screenshot](https://images.tango.us/workflows/5cb6eee7-0316-468d-a9de-7eedf47971b7/steps/22de3c51-ed7f-42c8-886e-2de82e6dc9ff/db6688f6-e406-42b6-870c-2adb1bce471f.png?crop=focalpoint&fit=crop&fp-x=0.3069&fp-y=0.4773&fp-z=2.3699&w=1200&border=2%2CF4F2F7&border-radius=8%2C8%2C8%2C8&border-radius-inner=8%2C8%2C8%2C8&blend-align=bottom&blend-mode=normal&blend-x=0&blend-w=1200&blend64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmstdjIucG5n&mark-x=427&mark-y=349&m64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL2JsYW5rLnBuZz9tYXNrPWNvcm5lcnMmYm9yZGVyPTQlMkNGRjc0NDImdz0zNDcmaD05MSZmaXQ9Y3JvcCZjb3JuZXItcmFkaXVzPTEw)
+
+
+### 10. Click on Save associations
+![Step 10 screenshot](https://images.tango.us/workflows/5cb6eee7-0316-468d-a9de-7eedf47971b7/steps/7b0bdc7c-8644-4292-bc16-6105b8476095/2a0d9c5f-8740-4b44-b482-6fab938e6e59.png?crop=focalpoint&fit=crop&fp-x=0.9187&fp-y=0.5501&fp-z=2.9660&w=1200&border=2%2CF4F2F7&border-radius=8%2C8%2C8%2C8&border-radius-inner=8%2C8%2C8%2C8&blend-align=bottom&blend-mode=normal&blend-x=0&blend-w=1200&blend64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL21hZGUtd2l0aC10YW5nby13YXRlcm1hcmstdjIucG5n&mark-x=708&mark-y=350&m64=aHR0cHM6Ly9pbWFnZXMudGFuZ28udXMvc3RhdGljL2JsYW5rLnBuZz9tYXNrPWNvcm5lcnMmYm9yZGVyPTQlMkNGRjc0NDImdz00MDUmaD04NyZmaXQ9Y3JvcCZjb3JuZXItcmFkaXVzPTEw)
+
+<br/>
+
+***
+Created with [Tango.us](https://tango.us?utm_source=markdown&utm_medium=markdown&utm_campaign=workflow%20export%20links)
